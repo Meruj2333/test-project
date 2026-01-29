@@ -57,33 +57,13 @@ let val={
 
     res.json(val);
 })
-
-
-
-
-
-
-
-
-
-app.listen(process.env.PORT||3000, function () {
-    console.log('listening on port 3000');
-})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+app.delete('/delete/:id', async (req, res) => {
+    const id = +req.params.id;
+    let data = JSON.parse(await readFile('posts.json', 'utf8'));
+    data = data.filter(item => item.id !== id);
+    await writeFile('posts.json', JSON.stringify(data, null, 2));
+    res.json({ success: true });
+});
 
 
 app.listen(process.env.PORT || 3000,function(){
